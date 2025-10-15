@@ -1,7 +1,13 @@
 package com.remindly.fw;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.PerformsTouchActions;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+
+import javax.security.auth.callback.TextInputCallback;
 
 public class BaseHelper {
     AppiumDriver driver;
@@ -32,4 +38,21 @@ public class BaseHelper {
             throw new RuntimeException(e);
         }
     }
+    public void swipe(double start, double stop) {
+        Dimension size = driver.manage().window().getSize();
+        int x = size.width/2;
+        int startY = (int) (size.height * start);
+        int stopY = (int) (size.height * stop);
+
+        new TouchAction((PerformsTouchActions)driver).longPress(PointOption.point(x,startY))
+                .moveTo(PointOption.point(x,stopY))
+                .release().perform();
+    }
+    public void swipeUntilNeededYear(String year, double startPoint, double stopPoint) {
+
+
+    }
+
+
+
 }
